@@ -4,16 +4,21 @@ const app = express();
 const mongoose =  require('mongoose');
 const uuid =  require('uuid');  
 const URLModel =  require('./Model/Url');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static('public'))
+app.use(express.urlencoded({extended: true})); // New
 
+app.set('views', './src/views')
+app.set('view engine', 'ejs')
 app.set('view engine','ejs');
-app.use(express.urlencoded({ extended: true }))
 
 mongoose.connect(process.env.DB_CONNECTION_STRING,()=>{
     console.log("DB is connected");
 })
 
 app.get('/', async (req,res)=>{
-    // res.send("Hello redirect");
+  
     res.render("index");
 })
 // to short the original url
@@ -27,7 +32,7 @@ app.post('/shortURL',async (req,res)=>{
     console.log(urlData);
     
     res.send(`${req.headers.origin}`+"/"+urlData.shortedUrl);
-    // res.send(`${req.headers.origin}`+"/"+urlData.shortedUrl);
+
 })
 //  to get the actual url
 app.get('/:shortUrl',async (req,res)=>{
