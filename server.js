@@ -28,6 +28,9 @@ app.post('/shortURL',async (req,res)=>{
         shortedUrl:uuid.v4()+'vs847',
         url:req.body.URL
     }
+    if(req.body.URL==null || req.body.URL == undefined ){
+        res.send("url is missing")
+    }
     const URl =  await URLModel.create(urlData);
     console.log(urlData);
     
