@@ -17,10 +17,7 @@ mongoose.connect(process.env.DB_CONNECTION_STRING,()=>{
     console.log("DB is connected");
 })
 
-app.get('/', async (req,res)=>{
-  
-    res.render("index");
-})
+
 // to short the original url
 app.post('/shortURL',async (req,res)=>{
     console.log("SHORT URL",req.body);
